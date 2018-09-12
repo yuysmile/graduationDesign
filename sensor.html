@@ -111,6 +111,10 @@
 	    <div class="save" style="margin-top: 40px;">
 	    	<a id="save-btn"  download="test.txt" role="button">保存</a>
 	    </div>
+
+	    <div class="form-control" rows="4" class="only" id="only">
+			单独的数据
+		</div>
 		
 		<!-- 数据获取 -->
 		<script type="text/javascript">
@@ -119,6 +123,7 @@
 			var GravityX = [], GravityY = [], GravityZ = [];
 			var RotateX = [], RotateY = [], RotateZ = [];
 			var content = document.querySelector( '#content' );
+			var content = document.querySelector( '#only' );
 			// function orientationHandler(event) {
 			// 	// alert('orientationHandler', event)
 			// 	// 方向传感器
@@ -180,7 +185,6 @@
 					} else {
 						document.body.innerHTML = "What user agent u r using???";
 					}
-
 					// 获取当前数据产生时的时间
 					var date = new Date();
 				    var seperator1 = "-";
@@ -194,7 +198,8 @@
 				        strDate = "0" + strDate;
 				    }
 				    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate + " " + date.getHours() + seperator2 + date.getMinutes() + seperator2 + date.getSeconds();
-				    content.innerHTML = accelerationX + '&nbsp;&nbsp;' + accelerationY + '&nbsp;&nbsp;' + accelerationZ + '&nbsp;&nbsp;' +  GravityX + '&nbsp;&nbsp;' +  GravityY + '&nbsp;&nbsp;' + GravityZ +  RotateX + '&nbsp;&nbsp;' +  RotateY + '&nbsp;&nbsp;' + RotateZ + currentdate;
+				    content.innerHTML + = accelerationX + '&nbsp;&nbsp;' + accelerationY + '&nbsp;&nbsp;' + accelerationZ + '&nbsp;&nbsp;' +  GravityX + '&nbsp;&nbsp;' +  GravityY + '&nbsp;&nbsp;' + GravityZ +  RotateX + '&nbsp;&nbsp;' +  RotateY + '&nbsp;&nbsp;' + RotateZ + currentdate + ' \n ';
+				    // only.innerHTML = accelerationX
 					console.log(++flag, currentdate)
 				}, 20);
 				
@@ -214,6 +219,7 @@
 				document.getElementById("Rgamma").innerHTML = 0;
 			 	// download(sensorData, content)
 			 	var downContent = document.getElementById('content').value
+
 			 	alert(downContent)
 
 			}
