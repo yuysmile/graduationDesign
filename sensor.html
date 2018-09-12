@@ -118,7 +118,7 @@
 			var accelerationX = [], accelerationY = [], accelerationZ = [];
 			var GravityX = [], GravityY = [], GravityZ = [];
 			var RotateX = [], RotateY = [], RotateZ = [];
-
+			var content = document.querySelector( '#content' );
 			// function orientationHandler(event) {
 			// 	// alert('orientationHandler', event)
 			// 	// 方向传感器
@@ -173,26 +173,47 @@
 
 			// 点击开始，触发函数执行
 			function start() {
+				var flag = 1
 				var file = setInterval(function(){ 
-					var content = document.querySelector( '#content' );
-			  		content.innerHTML = accelerationX + '&nbsp;&nbsp;' + accelerationY + '&nbsp;&nbsp;' + accelerationZ + '&nbsp;&nbsp;' +  GravityX + '&nbsp;&nbsp;' +  GravityY + '&nbsp;&nbsp;' + GravityZ +  RotateX + '&nbsp;&nbsp;' +  RotateY + '&nbsp;&nbsp;' + RotateZ + ' \n ';
 			  		if (window.DeviceMotionEvent) {
 						window.addEventListener("devicemotion", motionHandler, false);
 					} else {
 						document.body.innerHTML = "What user agent u r using???";
 					}
-					if (window.DeviceOrientationEvent) {
-						window.addEventListener("deviceorientation", orientationHandler, false);
-					} else {
-						document.body.innerHTML = "What user agent u r using???";
-					};
-				}, 500);
-				download(sensorData, content)
+
+					// 获取当前数据产生时的时间
+					var date = new Date();
+				    var seperator1 = "-";
+				    var seperator2 = ":";
+				    var month = date.getMonth() + 1;
+				    var strDate = date.getDate();
+				    if (month >= 1 && month <= 9) {
+				        month = "0" + month;
+				    }
+				    if (strDate >= 0 && strDate <= 9) {
+				        strDate = "0" + strDate;
+				    }
+				    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate + " " + date.getHours() + seperator2 + date.getMinutes() + seperator2 + date.getSeconds();
+				    content.innerHTML = accelerationX + '&nbsp;&nbsp;' + accelerationY + '&nbsp;&nbsp;' + accelerationZ + '&nbsp;&nbsp;' +  GravityX + '&nbsp;&nbsp;' +  GravityY + '&nbsp;&nbsp;' + GravityZ +  RotateX + '&nbsp;&nbsp;' +  RotateY + '&nbsp;&nbsp;' + RotateZ + currentdate;
+					console.log(++flag, currentdate)
+				}, 20);
+				
 			}
 			
 			// 点击结束，停止传感器数据的获取
 			function stop() {
-			 	clearInterval(file);
+			 	// clearInterval(file);
+			 	document.getElementById("x").innerHTML = 0;
+				document.getElementById("y").innerHTML = 0;
+				document.getElementById("z").innerHTML = 0;
+				document.getElementById("xg").innerHTML = 0;
+				document.getElementById("yg").innerHTML = 0;
+				document.getElementById("zg").innerHTML = 0;
+				document.getElementById("Ralpha").innerHTML = 0;
+				document.getElementById("Rbeta").innerHTML = 0;
+				document.getElementById("Rgamma").innerHTML = 0;
+			 	// download(sensorData, content)
+
 			}
 		</script>
 	</body>
