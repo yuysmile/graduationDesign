@@ -103,7 +103,7 @@
 		<div style="margin-top: 40px;font-size: 40px;">
 	        <label style="font-size: 25px;">文件名</label>
 	        <input type="text" value="test.txt" id="file-name">
-	        <a id="save-btn"  download="test.txt" role="button">保存</a>
+	        <div onclick="download('data.txt','hello')">保存</div> 
 	    </div>
 		<div style="margin-top: 40px;"></div>
 		<div class="form-control" rows="4" class="content" id="content">
@@ -195,10 +195,24 @@
 				    content.innerHTML += accelerationX + ' ' + accelerationY + ' ' +  accelerationZ + ' ' + GravityX + ' ' +  GravityY + ' ' + GravityZ + ' ' + RotateX + ' ' +  RotateY + ' ' + RotateZ + ' ' + currentdate + ' ' + flag + ' \n ';
 				    ++flag;
 					// console.log(content)
-				}, 20);
+				}, 50);
 				
 			}
 			
+			// 下载文件
+			function download(filename, text) {
+			    var pom = document.createElement('a');
+			    pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+			    pom.setAttribute('download', filename);
+			    if (document.createEvent) {
+			        var event = document.createEvent('MouseEvents');
+			        event.initEvent('click', true, true);
+			        pom.dispatchEvent(event);
+			    } else {
+			        pom.click();
+			    }
+			}
+
 			// 点击结束，停止传感器数据的获取
 			function stop() {
 			 	// clearInterval(file);
