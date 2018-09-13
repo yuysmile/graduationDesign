@@ -103,7 +103,7 @@
 		<div style="margin-top: 40px;font-size: 40px;">
 	        <label style="font-size: 25px;">文件名</label>
 	        <input type="text" value="test.txt" id="file-name">
-	        <div onclick="download('data.txt','hello')">保存</div> 
+	        <!-- <div onclick="download('data.txt','hello')">保存</div>  -->
 	    </div>
 		<div style="margin-top: 40px;"></div>
 		<div class="form-control" rows="4" class="content" id="content">
@@ -117,6 +117,7 @@
 			var GravityX = [], GravityY = [], GravityZ = [];
 			var RotateX = [], RotateY = [], RotateZ = [];
 			var content = document.querySelector( '#content' );
+			var dataContent = '';
 			// function orientationHandler(event) {
 			// 	// alert('orientationHandler', event)
 			// 	// 方向传感器
@@ -192,7 +193,8 @@
 				        strDate = "0" + strDate;
 				    }
 				    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate + " " + date.getHours() + seperator2 + date.getMinutes() + seperator2 + date.getSeconds();
-				    content.innerHTML += accelerationX + ' ' + accelerationY + ' ' +  accelerationZ + ' ' + GravityX + ' ' +  GravityY + ' ' + GravityZ + ' ' + RotateX + ' ' +  RotateY + ' ' + RotateZ + ' ' + currentdate + ' ' + flag + ' \n ';
+				    // content.innerHTML += accelerationX + ' ' + accelerationY + ' ' +  accelerationZ + ' ' + GravityX + ' ' +  GravityY + ' ' + GravityZ + ' ' + RotateX + ' ' +  RotateY + ' ' + RotateZ + ' ' + currentdate + ' ' + flag + ' \n ';
+				    dataContent += accelerationX + ' ' + accelerationY + ' ' +  accelerationZ + ' ' + GravityX + ' ' +  GravityY + ' ' + GravityZ + ' ' + RotateX + ' ' +  RotateY + ' ' + RotateZ + ' ' + currentdate + ' ' + flag + ' \n ';
 				    ++flag;
 					// console.log(content)
 				}, 50);
@@ -226,12 +228,15 @@
 				document.getElementById("Rbeta").innerHTML = '0.00';
 				document.getElementById("Rgamma").innerHTML = '0.00';
 			 	// download(sensorData, content)
-			 	var downContent = document.getElementById('content').innerHTML
-			 	console.log('downContent', downContent)
-			 	content.innerHTML = downContent
+			 	// var downContent = document.getElementById('content').innerHTML
+			 	// alert(downContent)
+			 	content.innerHTML = dataContent
+			 	console.log('dataContent', dataContent)
 			 	// alert(downContent)
 
 			}
+
+			
 		</script>
 	</body>
 
