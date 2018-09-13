@@ -82,39 +82,33 @@
 		
 		<div class="box">
 			<p>加速度传感器</p>
-			<p>x轴加速度：<span id="x">0</span>米每二次方秒</p>
-			<p>y轴加速度：<span id="y">0</span>米每二次方秒</p>
-			<p>z轴加速度：<span id="z">0</span>米每二次方秒</p>
+			<p>x轴加速度：<span id="x">0.00</span>米每二次方秒</p>
+			<p>y轴加速度：<span id="y">0.00</span>米每二次方秒</p>
+			<p>z轴加速度：<span id="z">0.00</span>米每二次方秒</p>
 		</div>
 
 		<div class="box">
 			<p>重力传感器(考虑重力加速度)</p>
-			<p>x轴加速度：<span id="xg">0</span>米每二次方秒</p>
-			<p>y轴加速度：<span id="yg">0</span>米每二次方秒</p>
-			<p>z轴加速度：<span id="zg">0</span>米每二次方秒</p>
+			<p>x轴加速度：<span id="xg">0.00</span>米每二次方秒</p>
+			<p>y轴加速度：<span id="yg">0.00</span>米每二次方秒</p>
+			<p>z轴加速度：<span id="zg">0.00</span>米每二次方秒</p>
 		</div>
 
 		<div class="box">
 			<p>陀螺仪传感器</p>
-			<p>左右旋转速度：<span id="Ralpha">0</span>度每秒</p>
-			<p>前后旋转速度：<span id="Rbeta">0</span>度每秒</p>
-			<p>扭转速度：<span id="Rgamma">0</span>度每秒</p>
+			<p>左右旋转速度：<span id="Ralpha">0.00</span>度每秒</p>
+			<p>前后旋转速度：<span id="Rbeta">0.00</span>度每秒</p>
+			<p>扭转速度：<span id="Rgamma">0.00</span>度每秒</p>
 		</div>
-		<div style="margin-top: 40px;"></div>
-		<div class="form-control" rows="4" class="content" id="content">
-			测试数据
-		</div>
-		<div style="margin-top: 40px;">
+		<div style="margin-top: 40px;font-size: 40px;">
 	        <label style="font-size: 25px;">文件名</label>
 	        <input type="text" value="test.txt" id="file-name">
+	        <a id="save-btn"  download="test.txt" role="button">保存</a>
 	    </div>
-	    <div class="save" style="margin-top: 40px;">
-	    	<a id="save-btn"  download="test.txt" role="button">保存</a>
-	    </div>
-
-	    <div class="form-control" rows="4" class="only" id="only">
-			单独的数据
+		<div style="margin-top: 40px;"></div>
+		<div class="form-control" rows="4" class="content" id="content">
 		</div>
+		
 		
 		<!-- 数据获取 -->
 		<script type="text/javascript">
@@ -123,7 +117,6 @@
 			var GravityX = [], GravityY = [], GravityZ = [];
 			var RotateX = [], RotateY = [], RotateZ = [];
 			var content = document.querySelector( '#content' );
-			var content = document.querySelector( '#only' );
 			// function orientationHandler(event) {
 			// 	// alert('orientationHandler', event)
 			// 	// 方向传感器
@@ -178,7 +171,6 @@
 
 			// 点击开始，触发函数执行
 			function start() {
-				console.log('start')
 				var flag = 1
 				var file = setInterval(function(){ 
 			  		if (window.DeviceMotionEvent) {
@@ -186,6 +178,7 @@
 					} else {
 						document.body.innerHTML = "What user agent u r using???";
 					}
+
 					// 获取当前数据产生时的时间
 					var date = new Date();
 				    var seperator1 = "-";
@@ -199,29 +192,31 @@
 				        strDate = "0" + strDate;
 				    }
 				    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate + " " + date.getHours() + seperator2 + date.getMinutes() + seperator2 + date.getSeconds();
-				    content.innerHTML + = accelerationX + '&nbsp;&nbsp;' + accelerationY + '&nbsp;&nbsp;' + accelerationZ + '&nbsp;&nbsp;' +  GravityX + '&nbsp;&nbsp;' +  GravityY + '&nbsp;&nbsp;' + GravityZ +  RotateX + '&nbsp;&nbsp;' +  RotateY + '&nbsp;&nbsp;' + RotateZ + currentdate + ' \n ';
-				    // only.innerHTML = accelerationX
-					console.log(++flag, currentdate)
+				    content.innerHTML += accelerationX + ' ' + accelerationY + ' ' +  accelerationZ + ' ' + GravityX + ' ' +  GravityY + ' ' + GravityZ + ' ' + RotateX + ' ' +  RotateY + ' ' + RotateZ + ' ' + currentdate + ' ' + flag + ' \n ';
+				    ++flag;
+					// console.log(content)
 				}, 20);
 				
 			}
 			
 			// 点击结束，停止传感器数据的获取
 			function stop() {
-				console.log('stop')
 			 	// clearInterval(file);
-			 	document.getElementById("x").innerHTML = 0;
-				document.getElementById("y").innerHTML = 0;
-				document.getElementById("z").innerHTML = 0;
-				document.getElementById("xg").innerHTML = 0;
-				document.getElementById("yg").innerHTML = 0;
-				document.getElementById("zg").innerHTML = 0;
-				document.getElementById("Ralpha").innerHTML = 0;
-				document.getElementById("Rbeta").innerHTML = 0;
-				document.getElementById("Rgamma").innerHTML = 0;
+			 	document.getElementById("x").innerHTML = '0.00';
+				document.getElementById("y").innerHTML = '0.00';
+				document.getElementById("z").innerHTML = '0.00';
+				document.getElementById("xg").innerHTML = '0.00';
+				document.getElementById("yg").innerHTML = '0.00';
+				document.getElementById("zg").innerHTML = '0.00';
+				document.getElementById("Ralpha").innerHTML = '0.00';
+				document.getElementById("Rbeta").innerHTML = '0.00';
+				document.getElementById("Rgamma").innerHTML = '0.00';
 			 	// download(sensorData, content)
-			 	var downContent = document.getElementById('content').value
-			 	alert(downContent)
+			 	var downContent = document.getElementById('content').innerHTML
+			 	console.log('downContent', downContent)
+			 	content.innerHTML = downContent
+			 	// alert(downContent)
+
 			}
 		</script>
 	</body>
