@@ -63,6 +63,10 @@
 	</head>
 
 	<body>
+		<div style="margin-top: 40px;margin-left: 40px;font-size: 30px;">
+			用户名： <input style="height: 90px;width: 500px;border: 1px solid gray;border-radius: 4px;font-size: 30px;" 
+				type="text" placeholder="行为操作者" id='users'>
+		</div>
 		<div class="boxTitle">
 			<button class="btnFirst" style="margin-top: 50px;" onClick="start()">点击开始</button>
 			<button class="btnSecond" onClick="stop()">点击结束</button>
@@ -105,7 +109,7 @@
 			var RotateX = [], RotateY = [], RotateZ = [];
 			var content = document.querySelector( '#content' );
 			var dataContent = '';
-			var ajaxData = '';
+			var ajaxData = [];
 			// function orientationHandler(event) {
 			// 	// alert('orientationHandler', event)
 			// 	// 方向传感器
@@ -199,7 +203,18 @@
 				    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate + " " + date.getHours() + seperator2 + date.getMinutes() + seperator2 + date.getSeconds() + seperator2 + date.getMilliseconds() ;
 					
 				    dataContent += '<p><span style="margin-left: 50px;">' + arrayHandle(accelerationX) + ' </span><span style="margin-left: 50px;">' + arrayHandle(accelerationY) + '</span><span style="margin-left: 50px;">' +  arrayHandle(accelerationZ) + '</span><span style="margin-left: 50px;">' + arrayHandle(GravityX) + '</span><span style="margin-left: 50px;">' +  arrayHandle(GravityY) + '</span><span style="margin-left: 50px;">' + arrayHandle(GravityZ) + '</span><span style="margin-left: 50px;">' + arrayHandle(RotateX) + '</span><span style="margin-left: 50px;">' + arrayHandle(RotateY) + '</span><span style="margin-left: 50px;">' + arrayHandle(RotateZ) + '</span><span style="margin-left: 50px;">' + currentdate + '</span><span style="margin-left: 50px;">' + '</p>';
-				    ajaxData += arrayHandle(accelerationX) + arrayHandle(accelerationY) + arrayHandle(accelerationZ) + arrayHandle(GravityX) + arrayHandle(GravityY) + arrayHandle(GravityZ) + arrayHandle(RotateX) + arrayHandle(RotateY) + arrayHandle(RotateZ) + currentdate
+				    ajaxData.push({
+				    	'accelerationX': arrayHandle(accelerationX),
+				    	'accelerationY': arrayHandle(accelerationY),
+				    	'accelerationZ': arrayHandle(accelerationZ),
+				    	'GravityX': arrayHandle(GravityX),
+				    	'GravityY': arrayHandle(GravityY),
+				    	'GravityZ': arrayHandle(GravityZ),
+				    	'RotateX': arrayHandle(RotateX),
+				    	'RotateY': arrayHandle(RotateY),
+				    	'RotateZ': arrayHandle(RotateZ),
+				    	'currentdate': currentdate
+				    })
 				}, 100);
 			}
 			
@@ -207,15 +222,21 @@
 			// 点击结束，停止传感器数据的获取
 			function stop() {
 			 	content.innerHTML = dataContent
-			 	console.log(ajaxData)
+			 	console.log('ajaxData', ajaxData)
 			 	if (window.DeviceMotionEvent) {
 					window.addEventListener("devicemotion", motionHandlerFalse, false);
 				} else {
 					document.body.innerHTML = "What user agent u r using???";
 				}
+				var param = {}
+				param.data = JSON.stringify(ajaxData)
+				// var user = document.getElementById('users').value
+				// console.log('用户名', user)
+				param.user = document.getElementById('users').value
 				$.ajax({
-					url:"",
-					data: '',
+					url:"http://172.0.0.1/ProName/DealOrder",
+					data: param,
+					type: 'POST',
 					success: function(data) {
 						console.log('交互成功', data)
 					}
