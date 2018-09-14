@@ -104,9 +104,9 @@
 		<!-- 数据获取 -->
 		<script type="text/javascript">
 			// var orientX = [], orientY = [], orientZ = [];
-			var accelerationX = [], accelerationY = [], accelerationZ = [];
-			var GravityX = [], GravityY = [], GravityZ = [];
-			var RotateX = [], RotateY = [], RotateZ = [];
+			var accelerationX = '', accelerationY = '', accelerationZ = '';
+			var GravityX = '', GravityY = '', GravityZ = '';
+			var RotateX = '', RotateY = '', RotateZ = '';
 			var content = document.querySelector( '#content' );
 			var dataContent = '';
 			var ajaxData = [];
@@ -140,27 +140,27 @@
 				document.getElementById("x").innerHTML = (+acc.x).toFixed(2);
 				document.getElementById("y").innerHTML = (+acc.y).toFixed(2);
 				document.getElementById("z").innerHTML = (+acc.z).toFixed(2);
-				accelerationX.push((+acc.x).toFixed(2));
-				accelerationY.push((+acc.y).toFixed(2));
-				accelerationZ.push((+acc.z).toFixed(2));
+				accelerationX = (+acc.x).toFixed(2);
+				accelerationY = (+acc.y).toFixed(2);
+				accelerationZ = (+acc.z).toFixed(2);
 
 				// 重力传感器
 				var accGravity = event.accelerationIncludingGravity;
 				document.getElementById("xg").innerHTML = (+accGravity.x).toFixed(2);
 				document.getElementById("yg").innerHTML = (+accGravity.y).toFixed(2);
 				document.getElementById("zg").innerHTML = (+accGravity.z).toFixed(2);
-				GravityX.push((+accGravity.x).toFixed(2));
-				GravityY.push((+accGravity.y).toFixed(2));
-				GravityZ.push((+accGravity.z).toFixed(2));
+				GravityX.push = (+accGravity.x).toFixed(2);
+				GravityY.push = (+accGravity.y).toFixed(2);
+				GravityZ.push = (+accGravity.z).toFixed(2);
 
 				// 陀螺仪传感器
 				var rotationRate = event.rotationRate;
 				document.getElementById("Ralpha").innerHTML = (+rotationRate.alpha).toFixed(2);
 				document.getElementById("Rbeta").innerHTML = (+rotationRate.beta).toFixed(2);
 				document.getElementById("Rgamma").innerHTML = (+rotationRate.gamma).toFixed(2);
-				RotateX.push((+rotationRate.alpha).toFixed(2));
-				RotateY.push((+rotationRate.beta).toFixed(2));
-				RotateZ.push((+rotationRate.gamma).toFixed(2));
+				RotateX.push = (+rotationRate.alpha).toFixed(2);
+				RotateY.push = (+rotationRate.beta).toFixed(2);
+				RotateZ.push = (+rotationRate.gamma).toFixed(2);
 			}
 
 			// 在移动端上生成一个TXT格式的文件并保存在本地。
@@ -202,18 +202,18 @@
 				    }
 				    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate + " " + date.getHours() + seperator2 + date.getMinutes() + seperator2 + date.getSeconds() + seperator2 + date.getMilliseconds() ;
 					
-				    dataContent += '<p><span style="margin-left: 50px;">' + arrayHandle(accelerationX) + ' </span><span style="margin-left: 50px;">' + arrayHandle(accelerationY) + '</span><span style="margin-left: 50px;">' +  arrayHandle(accelerationZ) + '</span><span style="margin-left: 50px;">' + arrayHandle(GravityX) + '</span><span style="margin-left: 50px;">' +  arrayHandle(GravityY) + '</span><span style="margin-left: 50px;">' + arrayHandle(GravityZ) + '</span><span style="margin-left: 50px;">' + arrayHandle(RotateX) + '</span><span style="margin-left: 50px;">' + arrayHandle(RotateY) + '</span><span style="margin-left: 50px;">' + arrayHandle(RotateZ) + '</span><span style="margin-left: 50px;">' + currentdate + '</span><span style="margin-left: 50px;">' + '</p>';
+				    dataContent += '<p><span style="margin-left: 50px;">' + accelerationX + ' </span><span style="margin-left: 50px;">' + accelerationY + '</span><span style="margin-left: 50px;">' +  accelerationZ + '</span><span style="margin-left: 50px;">' + GravityX + '</span><span style="margin-left: 50px;">' +  GravityY + '</span><span style="margin-left: 50px;">' + GravityZ + '</span><span style="margin-left: 50px;">' + RotateX + '</span><span style="margin-left: 50px;">' + RotateY + '</span><span style="margin-left: 50px;">' + RotateZ + '</span><span style="margin-left: 50px;">' + currentdate + '</span><span style="margin-left: 50px;">' + '</p>';
 				    var user = document.getElementById('users').value
 				    ajaxData.push({
-				    	'accelerationX': arrayHandle(accelerationX),
-				    	'accelerationY': arrayHandle(accelerationY),
-				    	'accelerationZ': arrayHandle(accelerationZ),
-				    	'GravityX': arrayHandle(GravityX),
-				    	'GravityY': arrayHandle(GravityY),
-				    	'GravityZ': arrayHandle(GravityZ),
-				    	'RotateX': arrayHandle(RotateX),
-				    	'RotateY': arrayHandle(RotateY),
-				    	'RotateZ': arrayHandle(RotateZ),
+				    	'accelerationX': accelerationX,
+				    	'accelerationY': accelerationY,
+				    	'accelerationZ': accelerationZ,
+				    	'GravityX': GravityX,
+				    	'GravityY': GravityY,
+				    	'GravityZ': GravityZ,
+				    	'RotateX': RotateX,
+				    	'RotateY': RotateY,
+				    	'RotateZ': RotateZ,
 				    	'currentdate': currentdate,
 				    	'user': user
 				    })
@@ -232,9 +232,7 @@
 				}
 				var param = {}
 				param.data = JSON.stringify(ajaxData)
-				// var user = document.getElementById('users').value
-				// console.log('用户名', user)
-				// param.user = document.getElementById('users').value
+				// console.log('')
 				$.ajax({
 					url:"http://172.0.0.1/ProName/DealOrder",
 					data: param,
