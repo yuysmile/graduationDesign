@@ -8,8 +8,8 @@
 				font-weight: bold;
 			}
 			body {
-				background-color: black;
-				color: white;
+				/*background-color: black;*/
+				/*color: white;*/
 			}
 			.box {
 				display: block;
@@ -100,15 +100,7 @@
 			<p>前后旋转速度：<span id="Rbeta">0.00</span>度每秒</p>
 			<p>扭转速度：<span id="Rgamma">0.00</span>度每秒</p>
 		</div>
-		<div style="margin-top: 40px;font-size: 40px;">
-	        <label style="font-size: 25px;">文件名</label>
-	        <input type="text" value="test.txt" id="file-name">
-	        <!-- <div onclick="download('data.txt','hello')">保存</div>  -->
-	    </div>
-		<div style="margin-top: 40px;"></div>
-		<div class="form-control" rows="4" class="content" id="content">
-		</div>
-		
+		<div class="form-control" rows="4" class="content" id="content"></div> 
 		
 		<!-- 数据获取 -->
 		<script type="text/javascript">
@@ -128,6 +120,18 @@
 			// 	orientY.push((+event.beta).toFixed(2));
 			// 	orientZ.push((+event.gamma).toFixed(2));
 			// }
+			function motionHandlerFalse(event) {
+				console.log('停止')
+				document.getElementById("x").innerHTML = '0.00';
+				document.getElementById("y").innerHTML = '0.00';
+				document.getElementById("z").innerHTML = '0.00';
+				document.getElementById("xg").innerHTML = '0.00';
+				document.getElementById("yg").innerHTML = '0.00';
+				document.getElementById("zg").innerHTML = '0.00';
+				document.getElementById("Ralpha").innerHTML = '0.00';
+				document.getElementById("Rbeta").innerHTML = '0.00';
+				document.getElementById("Rgamma").innerHTML = '0.00';
+			}
 
 			function motionHandler(event) {
 				// alert('motionHandler', event)
@@ -172,7 +176,6 @@
 
 			// 点击开始，触发函数执行
 			function start() {
-				var flag = 1
 				var file = setInterval(function(){ 
 			  		if (window.DeviceMotionEvent) {
 						window.addEventListener("devicemotion", motionHandler, false);
@@ -194,9 +197,7 @@
 				    }
 				    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate + " " + date.getHours() + seperator2 + date.getMinutes() + seperator2 + date.getSeconds();
 				    // content.innerHTML += accelerationX + ' ' + accelerationY + ' ' +  accelerationZ + ' ' + GravityX + ' ' +  GravityY + ' ' + GravityZ + ' ' + RotateX + ' ' +  RotateY + ' ' + RotateZ + ' ' + currentdate + ' ' + flag + ' \n ';
-				    dataContent += accelerationX + ' ' + accelerationY + ' ' +  accelerationZ + ' ' + GravityX + ' ' +  GravityY + ' ' + GravityZ + ' ' + RotateX + ' ' +  RotateY + ' ' + RotateZ + ' ' + currentdate + ' ' + flag + ' \n ';
-				    ++flag;
-					// console.log(content)
+				    dataContent += accelerationX + ' ' + accelerationY + ' ' +  accelerationZ + ' ' + GravityX + ' ' +  GravityY + ' ' + GravityZ + ' ' + RotateX + ' ' +  RotateY + ' ' + RotateZ + ' ' + currentdate + ' \n\n ';
 				}, 50);
 				
 			}
@@ -218,21 +219,16 @@
 			// 点击结束，停止传感器数据的获取
 			function stop() {
 			 	// clearInterval(file);
-			 	document.getElementById("x").innerHTML = '0.00';
-				document.getElementById("y").innerHTML = '0.00';
-				document.getElementById("z").innerHTML = '0.00';
-				document.getElementById("xg").innerHTML = '0.00';
-				document.getElementById("yg").innerHTML = '0.00';
-				document.getElementById("zg").innerHTML = '0.00';
-				document.getElementById("Ralpha").innerHTML = '0.00';
-				document.getElementById("Rbeta").innerHTML = '0.00';
-				document.getElementById("Rgamma").innerHTML = '0.00';
-			 	// download(sensorData, content)
-			 	// var downContent = document.getElementById('content').innerHTML
-			 	// alert(downContent)
+			 	
 			 	content.innerHTML = dataContent
-			 	console.log('dataContent', dataContent)
-			 	// alert(downContent)
+			 	console.log(dataContent)
+
+			 	if (window.DeviceMotionEvent) {
+			 		// console.log('1111')
+					window.addEventListener("devicemotion", motionHandlerFalse, false);
+				} else {
+					document.body.innerHTML = "What user agent u r using???";
+				}
 
 			}
 
