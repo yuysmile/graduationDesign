@@ -137,6 +137,7 @@
 				// alert('motionHandler', event)
 				var acc = event.acceleration;
 				// 加速度传感器
+				console.log('acc', acc)
 				document.getElementById("x").innerHTML = (+acc.x).toFixed(2);
 				document.getElementById("y").innerHTML = (+acc.y).toFixed(2);
 				document.getElementById("z").innerHTML = (+acc.z).toFixed(2);
@@ -149,6 +150,7 @@
 				document.getElementById("xg").innerHTML = (+accGravity.x).toFixed(2);
 				document.getElementById("yg").innerHTML = (+accGravity.y).toFixed(2);
 				document.getElementById("zg").innerHTML = (+accGravity.z).toFixed(2);
+				console.log('accGravity', accGravity)
 				GravityX.push = (+accGravity.x).toFixed(2);
 				GravityY.push = (+accGravity.y).toFixed(2);
 				GravityZ.push = (+accGravity.z).toFixed(2);
@@ -158,6 +160,7 @@
 				document.getElementById("Ralpha").innerHTML = (+rotationRate.alpha).toFixed(2);
 				document.getElementById("Rbeta").innerHTML = (+rotationRate.beta).toFixed(2);
 				document.getElementById("Rgamma").innerHTML = (+rotationRate.gamma).toFixed(2);
+				console.log('rotationRate', rotationRate)
 				RotateX.push = (+rotationRate.alpha).toFixed(2);
 				RotateY.push = (+rotationRate.beta).toFixed(2);
 				RotateZ.push = (+rotationRate.gamma).toFixed(2);
@@ -172,11 +175,6 @@
 			  	document.body.appendChild(element);
 			  	element.click();
 			  	document.body.removeChild(element);
-			}
-
-			//数据处理
-			function arrayHandle(argument) {
-				return argument[0] || '0.00'
 			}
 
 			// 点击开始，触发函数执行
@@ -205,15 +203,15 @@
 				    dataContent += '<p><span style="margin-left: 50px;">' + accelerationX + ' </span><span style="margin-left: 50px;">' + accelerationY + '</span><span style="margin-left: 50px;">' +  accelerationZ + '</span><span style="margin-left: 50px;">' + GravityX + '</span><span style="margin-left: 50px;">' +  GravityY + '</span><span style="margin-left: 50px;">' + GravityZ + '</span><span style="margin-left: 50px;">' + RotateX + '</span><span style="margin-left: 50px;">' + RotateY + '</span><span style="margin-left: 50px;">' + RotateZ + '</span><span style="margin-left: 50px;">' + currentdate + '</span><span style="margin-left: 50px;">' + '</p>';
 				    var user = document.getElementById('users').value
 				    ajaxData.push({
-				    	'accelerationX': accelerationX,
-				    	'accelerationY': accelerationY,
-				    	'accelerationZ': accelerationZ,
-				    	'GravityX': GravityX,
-				    	'GravityY': GravityY,
-				    	'GravityZ': GravityZ,
-				    	'RotateX': RotateX,
-				    	'RotateY': RotateY,
-				    	'RotateZ': RotateZ,
+				    	'accelerationX': accelerationX || '0.00',
+				    	'accelerationY': accelerationY || '0.00',
+				    	'accelerationZ': accelerationZ || '0.00',
+				    	'GravityX': GravityX || '0.00',
+				    	'GravityY': GravityY || '0.00',
+				    	'GravityZ': GravityZ || '0.00',
+				    	'RotateX': RotateX || '0.00',
+				    	'RotateY': RotateY || '0.00',
+				    	'RotateZ': RotateZ || '0.00',
 				    	'currentdate': currentdate,
 				    	'user': user
 				    })
