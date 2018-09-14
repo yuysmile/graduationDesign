@@ -203,6 +203,7 @@
 				    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate + " " + date.getHours() + seperator2 + date.getMinutes() + seperator2 + date.getSeconds() + seperator2 + date.getMilliseconds() ;
 					
 				    dataContent += '<p><span style="margin-left: 50px;">' + arrayHandle(accelerationX) + ' </span><span style="margin-left: 50px;">' + arrayHandle(accelerationY) + '</span><span style="margin-left: 50px;">' +  arrayHandle(accelerationZ) + '</span><span style="margin-left: 50px;">' + arrayHandle(GravityX) + '</span><span style="margin-left: 50px;">' +  arrayHandle(GravityY) + '</span><span style="margin-left: 50px;">' + arrayHandle(GravityZ) + '</span><span style="margin-left: 50px;">' + arrayHandle(RotateX) + '</span><span style="margin-left: 50px;">' + arrayHandle(RotateY) + '</span><span style="margin-left: 50px;">' + arrayHandle(RotateZ) + '</span><span style="margin-left: 50px;">' + currentdate + '</span><span style="margin-left: 50px;">' + '</p>';
+				    var user = document.getElementById('users').value
 				    ajaxData.push({
 				    	'accelerationX': arrayHandle(accelerationX),
 				    	'accelerationY': arrayHandle(accelerationY),
@@ -213,7 +214,8 @@
 				    	'RotateX': arrayHandle(RotateX),
 				    	'RotateY': arrayHandle(RotateY),
 				    	'RotateZ': arrayHandle(RotateZ),
-				    	'currentdate': currentdate
+				    	'currentdate': currentdate,
+				    	'user': user
 				    })
 				}, 100);
 			}
@@ -232,7 +234,7 @@
 				param.data = JSON.stringify(ajaxData)
 				// var user = document.getElementById('users').value
 				// console.log('用户名', user)
-				param.user = document.getElementById('users').value
+				// param.user = document.getElementById('users').value
 				$.ajax({
 					url:"http://172.0.0.1/ProName/DealOrder",
 					data: param,
