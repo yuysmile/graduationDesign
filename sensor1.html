@@ -196,8 +196,7 @@
 				        strDate = "0" + strDate;
 				    }
 				    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate + " " + date.getHours() + seperator2 + date.getMinutes() + seperator2 + date.getSeconds();
-				    // content.innerHTML += accelerationX + ' ' + accelerationY + ' ' +  accelerationZ + ' ' + GravityX + ' ' +  GravityY + ' ' + GravityZ + ' ' + RotateX + ' ' +  RotateY + ' ' + RotateZ + ' ' + currentdate + ' ' + flag + ' \n ';
-				    dataContent += accelerationX + ' ' + accelerationY + ' ' +  accelerationZ + ' ' + GravityX + ' ' +  GravityY + ' ' + GravityZ + ' ' + RotateX + ' ' +  RotateY + ' ' + RotateZ + ' ' + currentdate + ' \n\n ';
+				    dataContent += '<p>' + accelerationX + ' \n ' + accelerationY + ' \n ' +  accelerationZ + ' \n ' + GravityX + ' \n ' +  GravityY + ' \n ' + GravityZ + ' \n ' + RotateX + ' \n ' +  RotateY + ' \n ' + RotateZ + ' \n ' + currentdate + ' \n ' + '</p>';
 				}, 50);
 				
 			}
