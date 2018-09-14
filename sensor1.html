@@ -166,17 +166,6 @@
 				RotateZ.push = (+rotationRate.gamma).toFixed(2);
 			}
 
-			// 在移动端上生成一个TXT格式的文件并保存在本地。
-			function download(filename, text) {
-			  	var element = document.createElement('a');
-			  	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-			  	element.setAttribute('download', filename);
-			  	element.style.display = 'none';
-			  	document.body.appendChild(element);
-			  	element.click();
-			  	document.body.removeChild(element);
-			}
-
 			// 点击开始，触发函数执行
 			function start() {
 				var file = setInterval(function(){ 
@@ -185,7 +174,6 @@
 					} else {
 						document.body.innerHTML = "What user agent u r using???";
 					}
-
 					// 获取当前数据产生时的时间
 					var date = new Date();
 				    var seperator1 = "-";
@@ -203,15 +191,15 @@
 				    dataContent += '<p><span style="margin-left: 50px;">' + accelerationX + ' </span><span style="margin-left: 50px;">' + accelerationY + '</span><span style="margin-left: 50px;">' +  accelerationZ + '</span><span style="margin-left: 50px;">' + GravityX + '</span><span style="margin-left: 50px;">' +  GravityY + '</span><span style="margin-left: 50px;">' + GravityZ + '</span><span style="margin-left: 50px;">' + RotateX + '</span><span style="margin-left: 50px;">' + RotateY + '</span><span style="margin-left: 50px;">' + RotateZ + '</span><span style="margin-left: 50px;">' + currentdate + '</span><span style="margin-left: 50px;">' + '</p>';
 				    var user = document.getElementById('users').value
 				    ajaxData.push({
-				    	'accelerationX': accelerationX || '0.00',
-				    	'accelerationY': accelerationY || '0.00',
-				    	'accelerationZ': accelerationZ || '0.00',
-				    	'GravityX': GravityX || '0.00',
-				    	'GravityY': GravityY || '0.00',
-				    	'GravityZ': GravityZ || '0.00',
-				    	'RotateX': RotateX || '0.00',
-				    	'RotateY': RotateY || '0.00',
-				    	'RotateZ': RotateZ || '0.00',
+				    	'accelerationX': accelerationX,
+				    	'accelerationY': accelerationY,
+				    	'accelerationZ': accelerationZ,
+				    	'GravityX': GravityX,
+				    	'GravityY': GravityY,
+				    	'GravityZ': GravityZ,
+				    	'RotateX': RotateX,
+				    	'RotateY': RotateY,
+				    	'RotateZ': RotateZ,
 				    	'currentdate': currentdate,
 				    	'user': user
 				    })
@@ -230,7 +218,6 @@
 				}
 				var param = {}
 				param.data = JSON.stringify(ajaxData)
-				// console.log('')
 				$.ajax({
 					url:"http://172.0.0.1/ProName/DealOrder",
 					data: param,
