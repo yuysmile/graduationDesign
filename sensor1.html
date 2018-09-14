@@ -105,6 +105,7 @@
 			var RotateX = [], RotateY = [], RotateZ = [];
 			var content = document.querySelector( '#content' );
 			var dataContent = '';
+			var ajaxData = '';
 			// function orientationHandler(event) {
 			// 	// alert('orientationHandler', event)
 			// 	// 方向传感器
@@ -171,9 +172,6 @@
 
 			//数据处理
 			function arrayHandle(argument) {
-				// console.log('argument', argument)
-				// var arr = argument.split(',');
-				// console.log('arr[0]', arr[0])
 				return argument[0] || '0.00'
 			}
 
@@ -200,8 +198,8 @@
 				    }
 				    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate + " " + date.getHours() + seperator2 + date.getMinutes() + seperator2 + date.getSeconds() + seperator2 + date.getMilliseconds() ;
 					
-				    dataContent += '<p><span style="margin-left: 50px;">' + arrayHandle(accelerationX) + ' </span><span style="margin-left: 50px;">' + arrayHandle(accelerationY) + '</span><span style="margin-left: 50px;">' +  arrayHandle(accelerationZ) + '</span><span style="margin-left: 50px;">' + arrayHandle(GravityX) + '</span><span style="margin-left: 50px;">' +  arrayHandle(GravityY) + '</span><span style="margin-left: 50px;">' + arrayHandle(GravityZ) + '</span><span style="margin-left: 50px;">' + arrayHandle(RotateX) + '</span><span style="margin-left: 50px;">' +  arrayHandle(RotateY) + '</span><span style="margin-left: 50px;">' + arrayHandle(RotateZ) + '</span><span style="margin-left: 50px;">' + currentdate + '</span><span style="margin-left: 50px;">' + '</p>';
-
+				    dataContent += '<p><span style="margin-left: 50px;">' + arrayHandle(accelerationX) + ' </span><span style="margin-left: 50px;">' + arrayHandle(accelerationY) + '</span><span style="margin-left: 50px;">' +  arrayHandle(accelerationZ) + '</span><span style="margin-left: 50px;">' + arrayHandle(GravityX) + '</span><span style="margin-left: 50px;">' +  arrayHandle(GravityY) + '</span><span style="margin-left: 50px;">' + arrayHandle(GravityZ) + '</span><span style="margin-left: 50px;">' + arrayHandle(RotateX) + '</span><span style="margin-left: 50px;">' + arrayHandle(RotateY) + '</span><span style="margin-left: 50px;">' + arrayHandle(RotateZ) + '</span><span style="margin-left: 50px;">' + currentdate + '</span><span style="margin-left: 50px;">' + '</p>';
+				    ajaxData += arrayHandle(accelerationX) + arrayHandle(accelerationY) + arrayHandle(accelerationZ) + arrayHandle(GravityX) + arrayHandle(GravityY) + arrayHandle(GravityZ) + arrayHandle(RotateX) + arrayHandle(RotateY) + arrayHandle(RotateZ) + currentdate
 				}, 100);
 			}
 			
@@ -209,16 +207,22 @@
 			// 点击结束，停止传感器数据的获取
 			function stop() {
 			 	content.innerHTML = dataContent
-			 	console.log(dataContent)
+			 	console.log(ajaxData)
 			 	if (window.DeviceMotionEvent) {
 					window.addEventListener("devicemotion", motionHandlerFalse, false);
 				} else {
 					document.body.innerHTML = "What user agent u r using???";
 				}
-
+				$.ajax({
+					url:"",
+					data: '',
+					success: function(data) {
+						console.log('交互成功', data)
+					}
+				})
 			}
 
 		</script>
+		<script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
 	</body>
-
 </html>

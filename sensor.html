@@ -8,8 +8,8 @@
 				font-weight: bold;
 			}
 			body {
-				background-color: black;
-				color: white;
+				/*background-color: black;*/
+				/*color: white;*/
 			}
 			.box {
 				display: block;
@@ -66,11 +66,6 @@
 		<div class="boxTitle">
 			<button class="btnFirst" style="margin-top: 50px;" onClick="start()">点击开始</button>
 			<button class="btnSecond" onClick="stop()">点击结束</button>
-			<!-- <div id= 'user' style="margin-top: 20px;">
-				使用者身份识别：
-			</div> -->
-			<!-- <p>上次收到通知的间隔：<span id="interval">0</span>毫秒</p> -->
-			
 		</div>
 
 		<!-- <div class="box">
@@ -82,39 +77,25 @@
 		
 		<div class="box">
 			<p>加速度传感器</p>
-			<p>x轴加速度：<span id="x">0</span>米每二次方秒</p>
-			<p>y轴加速度：<span id="y">0</span>米每二次方秒</p>
-			<p>z轴加速度：<span id="z">0</span>米每二次方秒</p>
+			<p>x轴加速度：<span id="x">0.00</span>米每二次方秒</p>
+			<p>y轴加速度：<span id="y">0.00</span>米每二次方秒</p>
+			<p>z轴加速度：<span id="z">0.00</span>米每二次方秒</p>
 		</div>
 
 		<div class="box">
 			<p>重力传感器(考虑重力加速度)</p>
-			<p>x轴加速度：<span id="xg">0</span>米每二次方秒</p>
-			<p>y轴加速度：<span id="yg">0</span>米每二次方秒</p>
-			<p>z轴加速度：<span id="zg">0</span>米每二次方秒</p>
+			<p>x轴加速度：<span id="xg">0.00</span>米每二次方秒</p>
+			<p>y轴加速度：<span id="yg">0.00</span>米每二次方秒</p>
+			<p>z轴加速度：<span id="zg">0.00</span>米每二次方秒</p>
 		</div>
 
 		<div class="box">
 			<p>陀螺仪传感器</p>
-			<p>左右旋转速度：<span id="Ralpha">0</span>度每秒</p>
-			<p>前后旋转速度：<span id="Rbeta">0</span>度每秒</p>
-			<p>扭转速度：<span id="Rgamma">0</span>度每秒</p>
+			<p>左右旋转速度：<span id="Ralpha">0.00</span>度每秒</p>
+			<p>前后旋转速度：<span id="Rbeta">0.00</span>度每秒</p>
+			<p>扭转速度：<span id="Rgamma">0.00</span>度每秒</p>
 		</div>
-		<div style="margin-top: 40px;"></div>
-		<div class="form-control" rows="4" class="content" id="content">
-			测试数据
-		</div>
-		<div style="margin-top: 40px;">
-	        <label style="font-size: 25px;">文件名</label>
-	        <input type="text" value="test.txt" id="file-name">
-	    </div>
-	    <div class="save" style="margin-top: 40px;">
-	    	<a id="save-btn"  download="test.txt" role="button">保存</a>
-	    </div>
-
-	    <div class="form-control" rows="4" class="only" id="only">
-			单独的数据
-		</div>
+		<div class="form-control" rows="4" class="content" id="content"></div> 
 		
 		<!-- 数据获取 -->
 		<script type="text/javascript">
@@ -123,7 +104,7 @@
 			var GravityX = [], GravityY = [], GravityZ = [];
 			var RotateX = [], RotateY = [], RotateZ = [];
 			var content = document.querySelector( '#content' );
-			var content = document.querySelector( '#only' );
+			var dataContent = '';
 			// function orientationHandler(event) {
 			// 	// alert('orientationHandler', event)
 			// 	// 方向传感器
@@ -134,6 +115,18 @@
 			// 	orientY.push((+event.beta).toFixed(2));
 			// 	orientZ.push((+event.gamma).toFixed(2));
 			// }
+			function motionHandlerFalse(event) {
+				console.log('停止')
+				document.getElementById("x").innerHTML = '0.00';
+				document.getElementById("y").innerHTML = '0.00';
+				document.getElementById("z").innerHTML = '0.00';
+				document.getElementById("xg").innerHTML = '0.00';
+				document.getElementById("yg").innerHTML = '0.00';
+				document.getElementById("zg").innerHTML = '0.00';
+				document.getElementById("Ralpha").innerHTML = '0.00';
+				document.getElementById("Rbeta").innerHTML = '0.00';
+				document.getElementById("Rgamma").innerHTML = '0.00';
+			}
 
 			function motionHandler(event) {
 				// alert('motionHandler', event)
@@ -176,16 +169,20 @@
 			  	document.body.removeChild(element);
 			}
 
+			//数据处理
+			function arrayHandle(argument) {
+				return argument[0] || '0.00'
+			}
+
 			// 点击开始，触发函数执行
 			function start() {
-				console.log('start')
-				var flag = 1
 				var file = setInterval(function(){ 
 			  		if (window.DeviceMotionEvent) {
-						window.addEventListener("devicemotion", motionHandler, false);
+			  			window.addEventListener("devicemotion", motionHandler, false);
 					} else {
 						document.body.innerHTML = "What user agent u r using???";
 					}
+
 					// 获取当前数据产生时的时间
 					var date = new Date();
 				    var seperator1 = "-";
@@ -198,31 +195,25 @@
 				    if (strDate >= 0 && strDate <= 9) {
 				        strDate = "0" + strDate;
 				    }
-				    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate + " " + date.getHours() + seperator2 + date.getMinutes() + seperator2 + date.getSeconds();
-				    content.innerHTML + = accelerationX + '&nbsp;&nbsp;' + accelerationY + '&nbsp;&nbsp;' + accelerationZ + '&nbsp;&nbsp;' +  GravityX + '&nbsp;&nbsp;' +  GravityY + '&nbsp;&nbsp;' + GravityZ +  RotateX + '&nbsp;&nbsp;' +  RotateY + '&nbsp;&nbsp;' + RotateZ + currentdate + ' \n ';
-				    // only.innerHTML = accelerationX
-					console.log(++flag, currentdate)
-				}, 20);
-				
+				    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate + " " + date.getHours() + seperator2 + date.getMinutes() + seperator2 + date.getSeconds() + seperator2 + date.getMilliseconds() ;
+					
+				    dataContent += '<p><span style="margin-left: 50px;">' + arrayHandle(accelerationX) + ' </span><span style="margin-left: 50px;">' + arrayHandle(accelerationY) + '</span><span style="margin-left: 50px;">' +  arrayHandle(accelerationZ) + '</span><span style="margin-left: 50px;">' + arrayHandle(GravityX) + '</span><span style="margin-left: 50px;">' +  arrayHandle(GravityY) + '</span><span style="margin-left: 50px;">' + arrayHandle(GravityZ) + '</span><span style="margin-left: 50px;">' + arrayHandle(RotateX) + '</span><span style="margin-left: 50px;">' +  arrayHandle(RotateY) + '</span><span style="margin-left: 50px;">' + arrayHandle(RotateZ) + '</span><span style="margin-left: 50px;">' + currentdate + '</span><span style="margin-left: 50px;">' + '</p>';
+				}, 100);
 			}
 			
+
 			// 点击结束，停止传感器数据的获取
 			function stop() {
-				console.log('stop')
-			 	// clearInterval(file);
-			 	document.getElementById("x").innerHTML = 0;
-				document.getElementById("y").innerHTML = 0;
-				document.getElementById("z").innerHTML = 0;
-				document.getElementById("xg").innerHTML = 0;
-				document.getElementById("yg").innerHTML = 0;
-				document.getElementById("zg").innerHTML = 0;
-				document.getElementById("Ralpha").innerHTML = 0;
-				document.getElementById("Rbeta").innerHTML = 0;
-				document.getElementById("Rgamma").innerHTML = 0;
-			 	// download(sensorData, content)
-			 	var downContent = document.getElementById('content').value
-			 	alert(downContent)
+			 	content.innerHTML = dataContent
+			 	console.log(dataContent)
+			 	if (window.DeviceMotionEvent) {
+					window.addEventListener("devicemotion", motionHandlerFalse, false);
+				} else {
+					document.body.innerHTML = "What user agent u r using???";
+				}
+
 			}
+
 		</script>
 	</body>
 
