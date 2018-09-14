@@ -66,11 +66,6 @@
 		<div class="boxTitle">
 			<button class="btnFirst" style="margin-top: 50px;" onClick="start()">点击开始</button>
 			<button class="btnSecond" onClick="stop()">点击结束</button>
-			<!-- <div id= 'user' style="margin-top: 20px;">
-				使用者身份识别：
-			</div> -->
-			<!-- <p>上次收到通知的间隔：<span id="interval">0</span>毫秒</p> -->
-			
 		</div>
 
 		<!-- <div class="box">
@@ -174,11 +169,19 @@
 			  	document.body.removeChild(element);
 			}
 
+			//数据处理
+			function arrayHandle(argument) {
+				// console.log('argument', argument)
+				// var arr = argument.split(',');
+				// console.log('arr[0]', arr[0])
+				return argument[0] || '0.00'
+			}
+
 			// 点击开始，触发函数执行
 			function start() {
 				var file = setInterval(function(){ 
 			  		if (window.DeviceMotionEvent) {
-						window.addEventListener("devicemotion", motionHandler, false);
+			  			window.addEventListener("devicemotion", motionHandler, false);
 					} else {
 						document.body.innerHTML = "What user agent u r using???";
 					}
@@ -195,35 +198,19 @@
 				    if (strDate >= 0 && strDate <= 9) {
 				        strDate = "0" + strDate;
 				    }
-				    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate + " " + date.getHours() + seperator2 + date.getMinutes() + seperator2 + date.getSeconds();
-				    dataContent += '<p>' + accelerationX + ' \n ' + accelerationY + ' \n ' +  accelerationZ + ' \n ' + GravityX + ' \n ' +  GravityY + ' \n ' + GravityZ + ' \n ' + RotateX + ' \n ' +  RotateY + ' \n ' + RotateZ + ' \n ' + currentdate + ' \n ' + '</p>';
-				}, 50);
-				
+				    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate + " " + date.getHours() + seperator2 + date.getMinutes() + seperator2 + date.getSeconds() + seperator2 + date.getMilliseconds() ;
+					
+				    dataContent += '<p><span style="margin-left: 50px;">' + arrayHandle(accelerationX) + ' </span><span style="margin-left: 50px;">' + arrayHandle(accelerationY) + '</span><span style="margin-left: 50px;">' +  arrayHandle(accelerationZ) + '</span><span style="margin-left: 50px;">' + arrayHandle(GravityX) + '</span><span style="margin-left: 50px;">' +  arrayHandle(GravityY) + '</span><span style="margin-left: 50px;">' + arrayHandle(GravityZ) + '</span><span style="margin-left: 50px;">' + arrayHandle(RotateX) + '</span><span style="margin-left: 50px;">' +  arrayHandle(RotateY) + '</span><span style="margin-left: 50px;">' + arrayHandle(RotateZ) + '</span><span style="margin-left: 50px;">' + currentdate + '</span><span style="margin-left: 50px;">' + '</p>';
+
+				}, 100);
 			}
 			
-			// 下载文件
-			function download(filename, text) {
-			    var pom = document.createElement('a');
-			    pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-			    pom.setAttribute('download', filename);
-			    if (document.createEvent) {
-			        var event = document.createEvent('MouseEvents');
-			        event.initEvent('click', true, true);
-			        pom.dispatchEvent(event);
-			    } else {
-			        pom.click();
-			    }
-			}
 
 			// 点击结束，停止传感器数据的获取
 			function stop() {
-			 	// clearInterval(file);
-			 	
 			 	content.innerHTML = dataContent
 			 	console.log(dataContent)
-
 			 	if (window.DeviceMotionEvent) {
-			 		// console.log('1111')
 					window.addEventListener("devicemotion", motionHandlerFalse, false);
 				} else {
 					document.body.innerHTML = "What user agent u r using???";
@@ -231,7 +218,6 @@
 
 			}
 
-			
 		</script>
 	</body>
 
