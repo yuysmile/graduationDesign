@@ -120,6 +120,9 @@
 			// 	orientY.push((+event.beta).toFixed(2));
 			// 	orientZ.push((+event.gamma).toFixed(2));
 			// }
+
+
+			// 停止时页面的传感器数据变化
 			function motionHandlerFalse(event) {
 				console.log('停止')
 				document.getElementById("x").innerHTML = '0.00';
@@ -133,10 +136,11 @@
 				document.getElementById("Rgamma").innerHTML = '0.00';
 			}
 
+			// 开始时传感器数据的变化
 			function motionHandler(event) {
-				// alert('motionHandler', event)
-				var acc = event.acceleration;
+
 				// 加速度传感器
+				var acc = event.acceleration;
 				console.log('acc', acc)
 				document.getElementById("x").innerHTML = (+acc.x).toFixed(2);
 				document.getElementById("y").innerHTML = (+acc.y).toFixed(2);
@@ -151,9 +155,9 @@
 				document.getElementById("yg").innerHTML = (+accGravity.y).toFixed(2);
 				document.getElementById("zg").innerHTML = (+accGravity.z).toFixed(2);
 				console.log('accGravity', accGravity)
-				GravityX.push = (+accGravity.x).toFixed(2);
-				GravityY.push = (+accGravity.y).toFixed(2);
-				GravityZ.push = (+accGravity.z).toFixed(2);
+				GravityX = (+accGravity.x).toFixed(2);
+				GravityY = (+accGravity.y).toFixed(2);
+				GravityZ = (+accGravity.z).toFixed(2);
 
 				// 陀螺仪传感器
 				var rotationRate = event.rotationRate;
@@ -161,9 +165,9 @@
 				document.getElementById("Rbeta").innerHTML = (+rotationRate.beta).toFixed(2);
 				document.getElementById("Rgamma").innerHTML = (+rotationRate.gamma).toFixed(2);
 				console.log('rotationRate', rotationRate)
-				RotateX.push = (+rotationRate.alpha).toFixed(2);
-				RotateY.push = (+rotationRate.beta).toFixed(2);
-				RotateZ.push = (+rotationRate.gamma).toFixed(2);
+				RotateX = (+rotationRate.alpha).toFixed(2);
+				RotateY = (+rotationRate.beta).toFixed(2);
+				RotateZ = (+rotationRate.gamma).toFixed(2);
 			}
 
 			// 点击开始，触发函数执行
